@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Shuttle Bus App</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="background-mesh">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-panel main-header">
+            <div class="logo">
+                <i data-lucide="bus-front" class="icon-accent"></i>
+                <h1>넥스트 셔틀</h1>
+            </div>
+            <p class="subtitle">AI 기반 스마트 캠퍼스 셔틀 시스템</p>
+        </header>
+
+        <main class="dashboard">
+            <!-- Timetable Section -->
+            <section class="glass-panel card timetable-card">
+                <div class="card-header">
+                    <h2><i data-lucide="clock"></i> 실시간 노선 조회</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="route-select">탑승 노선</label>
+                        <select id="route-select" class="modern-input">
+                            <option value="A노선 (인문대 방향)">A노선 (인문대 방향)</option>
+                            <option value="B노선 (공과대 방향)">B노선 (공과대 방향)</option>
+                            <option value="야간 셔틀">야간 특별 셔틀</option>
+                        </select>
+                        <button id="search-timetable-btn" class="btn-primary">
+                            <i data-lucide="search"></i> 조회
+                        </button>
+                    </div>
+
+                    <div id="timetable-results" class="results-container">
+                        <!-- Timetable cards will be injected here -->
+                        <div class="empty-state">
+                            <i data-lucide="map" class="empty-icon"></i>
+                            <p>원하시는 노선을 선택 후 조회하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Boarding Prediction Section -->
+            <section class="glass-panel card prediction-card">
+                <div class="card-header">
+                    <h2><i data-lucide="users"></i> 실시간 탑승 현황 및 예측</h2>
+                </div>
+                <div class="card-body">
+                    <div class="input-group row-group">
+                        <div class="input-item">
+                            <label for="stop-select">현재 정류장</label>
+                            <select id="stop-select" class="modern-input">
+                                <option value="정문 승강장">정문 승강장</option>
+                                <option value="도서관 앞">도서관 앞</option>
+                                <option value="기숙사 1동">기숙사 1동</option>
+                            </select>
+                        </div>
+                        <div class="input-item">
+                            <label for="time-select">시간대</label>
+                            <select id="time-select" class="modern-input">
+                                <option value="morning">오전 (등교 시간)</option>
+                                <option value="afternoon">오후 (일반 시간)</option>
+                                <option value="evening">저녁 (하교 시간)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="predict-btn" class="btn-action">
+                        <i data-lucide="zap"></i> 탑승 가능 여부 AI 분석
+                    </button>
+
+                    <div id="prediction-result" class="results-container hidden">
+                        <!-- Prediction content injected here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
