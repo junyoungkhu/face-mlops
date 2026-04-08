@@ -17,3 +17,13 @@ class StopStatus(BaseModel):
     bus_capacity_left: int = Field(description="현재 접근 중인 버스의 잔여 좌석 수")
     can_board: bool = Field(description="전원 탑승 가능 여부")
     congestion_level: str = Field(description="혼잡도 수준 (예: 여유, 보통, 혼잡, 만석)")
+
+class CongestionFeedback(BaseModel):
+    stop_name: str = Field(description="정류장 이름")
+    route_name: str = Field(description="노선 이름")
+    congestion_level: str = Field(description="실제 체감 혼잡도 (예: 여유, 보통, 혼잡, 만석)")
+    comments: str | None = Field(default=None, description="학생들이 남기는 추가 피드백 코멘트")
+
+class FeedbackResponse(BaseModel):
+    status: str = Field(description="반영 상태")
+    message: str = Field(description="응답 메시지")

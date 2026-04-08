@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from app.models.schemas import BusTimetable, StopStatus, BoardPredictRequest
+from app.models.schemas import BusTimetable, StopStatus, BoardPredictRequest, CongestionFeedback, FeedbackResponse
 from app.services.ml_service import predict_boarding_capacity
 
 router = APIRouter()
@@ -30,4 +30,20 @@ def get_stop_status(request: BoardPredictRequest):
         bus_capacity_left=prediction["bus_capacity_left"],
         can_board=can_board,
         congestion_level=prediction["congestion_level"]
+    )
+
+@router.post("/feedback", response_model=FeedbackResponse)
+def submit_feedback(feedback: CongestionFeedback):
+    """
+    학생들이 체감하는 실시간 정류장/버스 혼잡도를 피드백 받습니다.
+    접수된 피드백은 모델 재학습(Retraining) 또는 실시간 혼잡도 보정에 활용됩니다.
+    """
+    # 실제 환경에서는 DB에 저장하거나 Kafka 등의 메시지 큐로 전송하여 MLOps 재학습에 활용합니다.
+    print(f"[Feedback Received] {feedback.stop_name} ({feedback.route_name}): {feedback.congestion_level}")
+    if feedback.comments:
+        print(f"Comments: {feedback.comments}")
+        
+    return FeedbackResponse(
+        status="success",
+        message="소중한 피드백이 접수되었습니다. 더 나은 셔틀버스를 위해 반영하겠습니다!"
     )
