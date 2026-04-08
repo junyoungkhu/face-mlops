@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 21,
+  "agentName": "JUNYOUNG",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus11.actions.githubusercontent.com/5WB6xsPzEI6yezGxHwMUw3FUngI1UIjBMqH4EBWgZptgSy5H1l/",
+  "gitHubUrl": "https://github.com/junyoungkhu/face-mlops",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
