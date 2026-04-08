@@ -65,23 +65,38 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Debug Environment
+        shell: cmd
+        run: |
+          where docker
+          docker version
+
       - name: Login to Docker Hub
+        # PR(풀 리퀘스트) 이벤트가 아닐 때만 로그인 수행
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Pull Latest Docker Image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/shuttle-api:latest
+        shell: cmd
+        run: docker pull %DOCKERHUB_USERNAME%/shuttle-api:latest
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
       - name: Stop Existing Container
+        shell: cmd
         continue-on-error: true
         run: docker stop shuttle-api-container
 
       - name: Remove Existing Container
+        shell: cmd
         continue-on-error: true
         run: docker rm shuttle-api-container
 
       - name: Run New Container
-        run: |
-          docker run -d --name shuttle-api-container -p 8000:8000 --restart unless-stopped ${{ secrets.DOCKERHUB_USERNAME }}/shuttle-api:latest
+        shell: cmd
+        run: docker run -d --name shuttle-api-container -p 8000:8000 --restart unless-stopped %DOCKERHUB_USERNAME%/shuttle-api:latest
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
