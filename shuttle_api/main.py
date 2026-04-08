@@ -12,3 +12,5 @@ app.include_router(shuttle_router, prefix="/api/v1/shuttle", tags=["Shuttle"])
 @app.get("/")
 def read_root():
     return {"message": "API is running. Visit /docs for Swagger UI."}
+
+# Trigger deployment
