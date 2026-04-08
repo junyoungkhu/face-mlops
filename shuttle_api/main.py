@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-# Trigger redeploy for Runner fix
+# Final trigger for redeploy - Docker path fix
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from app.api.routes import router as shuttle_router
