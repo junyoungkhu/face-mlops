@@ -145,4 +145,59 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleLoader(false);
         }
     });
+
+    // 3. Submit Feedback (New Upgrade)
+    const submitFeedbackBtn = document.getElementById('submit-feedback-btn');
+    const fbStop = document.getElementById('fb-stop');
+    const fbRoute = document.getElementById('fb-route');
+    const fbLevel = document.getElementById('fb-level');
+    const fbComment = document.getElementById('fb-comment');
+    const fbStatus = document.getElementById('fb-status');
+
+    submitFeedbackBtn.addEventListener('click', async () => {
+        if (!fbStop.value || !fbRoute.value) {
+            alert('제보 위치와 노선명을 입력해 주세요!');
+            return;
+        }
+
+        toggleLoader(true);
+        fbStatus.classList.add('hidden');
+
+        try {
+            await new Promise(r => setTimeout(r, 700)); // Simulated network delay
+
+            const response = await fetch('/api/v1/shuttle/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    stop_name: fbStop.value,
+                    route_name: fbRoute.value,
+                    congestion_level: fbLevel.value,
+                    comments: fbComment.value
+                })
+            });
+
+            if (!response.ok) throw new Error('Submission failed');
+            const data = await response.json();
+
+            // Show Success UI
+            fbStatus.innerHTML = `<p>${data.message}</p>`;
+            fbStatus.className = 'status-msg status-success';
+            fbStatus.classList.remove('hidden');
+
+            // Clear Form
+            fbStop.value = '';
+            fbRoute.value = '';
+            fbComment.value = '';
+
+        } catch (error) {
+            console.error(error);
+            fbStatus.innerHTML = `<p>제보 전송 중 오류가 발생했습니다. 다시 시도해 주세요.</p>`;
+            fbStatus.className = 'status-msg';
+            fbStatus.style.color = 'var(--danger)';
+            fbStatus.classList.remove('hidden');
+        } finally {
+            toggleLoader(false);
+        }
+    });
 });

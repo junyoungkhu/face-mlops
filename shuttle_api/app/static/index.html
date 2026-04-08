@@ -88,6 +88,44 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Real-time Feedback Section (New Upgrade) -->
+            <section class="glass-panel card feedback-card full-width">
+                <div class="card-header">
+                    <h2><i data-lucide="message-square"></i> 실시간 혼잡도 제보 (학생 참여)</h2>
+                    <span class="badge-new">NEW</span>
+                </div>
+                <div class="card-body">
+                    <p class="section-desc">현재 정류장이나 버스의 혼잡도를 제보해 주세요. 데이터는 AI 학습에 활용됩니다.</p>
+                    <div class="input-grid">
+                        <div class="input-item">
+                            <label>제보 위치</label>
+                            <input type="text" id="fb-stop" class="modern-input" placeholder="예: 정문 승강장">
+                        </div>
+                        <div class="input-item">
+                            <label>노선명</label>
+                            <input type="text" id="fb-route" class="modern-input" placeholder="예: A노선">
+                        </div>
+                        <div class="input-item">
+                            <label>체감 혼잡도</label>
+                            <select id="fb-level" class="modern-input">
+                                <option value="여유">여유 (앉아갈 수 있음)</option>
+                                <option value="보통">보통 (입석 발생)</option>
+                                <option value="혼잡">혼잡 (탑승 어려움)</option>
+                                <option value="만석">만석 (다음 차 대기)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-item" style="margin-top: 1rem;">
+                        <label>상세 의견 (선택)</label>
+                        <textarea id="fb-comment" class="modern-input" rows="2" placeholder="전해줄 의견이 있다면 남겨주세요..."></textarea>
+                    </div>
+                    <button id="submit-feedback-btn" class="btn-accent" style="margin-top: 1.5rem;">
+                        <i data-lucide="send"></i> 제보하기
+                    </button>
+                    <div id="fb-status" class="status-msg hidden"></div>
+                </div>
+            </section>
         </main>
     </div>
 
